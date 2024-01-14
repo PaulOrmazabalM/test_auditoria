@@ -1,7 +1,7 @@
 import pytest
 from src.main import sumar
 from src.main import validar_usuario
-
+from src.main import validar_rut
 
 @pytest.mark.parametrize(
     "input_a,input_b,esperado",
@@ -34,4 +34,18 @@ def test_validar_contraseña_incorrecta():
     assert validar_usuario("usuario1", "contraseña_incorrecta") is False
 
 
+def test_validar_rut_correcto():
+    assert validar_rut("15027946-1") is True
+
+def test_validar_rut_formato_incorrecto():
+    assert validar_rut("1234-5678") is False
+
+def test_validar_rut_digitos_no_numericos():
+    assert validar_rut("abcdefgh-i") is False
+
+def test_validar_rut_longitud_cuerpo_incorrecta():
+    assert validar_rut("12806807-4") is False
+
+def test_validar_rut_digito_verificador_no_numerico():
+    assert validar_rut("12345678-a") is False
 
